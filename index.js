@@ -1,4 +1,4 @@
-const title = prompt('Как называется ваш проект?')
+const title = prompt('Как называется ваш проект?');
 const screens = prompt('Какие типы экранов нужно разработать?');
 const screenPrice = +prompt('Сколько будет стоить данная работа');
 const adaptive = confirm('Нужен ли адаптив на сайте?');
@@ -9,45 +9,50 @@ const service2 = prompt('Какой дополнительный тип услу
 const servicePrice2 = +prompt('Сколько это будет стоить ?');
 
 const rollback = 90;
-const fullPrice = screenPrice + servicePrice1 + servicePrice2;
 
-const servicePercentPrice = Math.ceil(fullPrice - rollback);
+const allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
+const fullPrice = getFullPrice(screenPrice, allServicePrices);
+const servicePercentPrice = Math.ceil(getServicePercentPrices(fullPrice, rollback));
 
-console.log(servicePercentPrice);
-
-switch (true) {
-    case fullPrice >= 30000:
-        console.log('Даем скидку в 10%');
-        break
-
-    case fullPrice >= 15000 && fullPrice <= 30000:
-        console.log('Даем скидку в 5%');
-        break
-
-    case fullPrice <= 15000 && fullPrice >= 0:
-        console.log('Скидка не предусмотрена');
-        break
-
-    case fullPrice <= 0:
-        console.log('Что то пошло не так');
-        break
+const showTypeOff = (data) => {
+    console.log(data, typeof data);
+};
 
 
-    default:
-        break;
+function getFullPrice(price, sidePrice) {
+    return price + sidePrice;
 }
 
+const getAllServicePrices = function (price1, price2) {
+    return price1 + price2;
+};
 
 
+const getTitle = (title) => {
+    const trimTitle = title.trim();
+    const correctTitle = trimTitle[0].toUpperCase() + trimTitle.slice(1).toLowerCase();
+    return correctTitle;
+};
 
+function getServicePercentPrices(price, numB) {
+    return price - numB;
+}
 
-// console.log(typeof title);
-// console.log(typeof fullPrice);
-// console.log(typeof adaptive);
-// console.log(screens.length);
-// console.log(`Стоимость верстки экранов ${screenPrice} рублей`);
-// console.log(`Стоимость разработки сайта ${fullPrice} рублей`);
+const getRollbackMessage = (price) => {
+    if (price >= 30000) {
+        return 'Даем скидку в 10%';
+    } else if (price >= 15000 && price <= 30000) {
+        return 'Даем скидку в 5%';
+    } else if (price < 15000 && price >= 0) {
+        return 'Скидка не предусмотрена';
+    } else {
+        return 'Что то пошло не так';
+    }
+};
 
-// console.log(screens.toLowerCase().split(", "));
-// console.log(fullPrice * (rollback / 100));
-
+showTypeOff(title)
+showTypeOff(screenPrice)
+showTypeOff(adaptive)
+console.log(screens);
+console.log(getRollbackMessage(fullPrice));
+console.log(servicePercentPrice);
