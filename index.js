@@ -24,8 +24,8 @@ const appData = {
             do {
                 name = prompt('Какие типы экранов нужно разработать?');
             } while (!appData.isText(name))
-         
-                do {
+
+            do {
                 price = +prompt('Сколько будет стоить данная работа');
             } while (!appData.isNumber(price));
 
@@ -42,8 +42,8 @@ const appData = {
             do {
                 name = prompt('Какой дополнительный тип услуги нужен?');
             } while (!appData.isText(name))
-                
-                do {
+
+            do {
                 promptValue = prompt('Сколько это будет стоить ?');
             } while (!appData.isNumber(promptValue));
             appData.services[`${name}_${i}`] = +promptValue;
